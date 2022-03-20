@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="site">
+        <div id="header"></div>
+        <div id="container"></div>
+        <div id="ui"></div>
+    </div>
+</body>
+
+<script>
+
+
+
+const container = document.getElementById("container")
+container.style.height = '144px'
+container.style.width = '144px'
+const ui = document.getElementById("ui")
+
+const wipeBtn = document.createElement("button")
+wipeBtn.setAttribute("id", "wipeBtn")
+wipeBtn.textContent = "Reset"
+ui.appendChild(wipeBtn)
+
+const grid = []
+var oldGrid = 0
+
+
+
+wipeBtn.addEventListener("click", function (e) {
+    for(i=0; i<grid.length; i++) {
+        grid[i].classList.remove('hover')
+        currentOpacity[i] = 0
+        grid[i].style.opacity = 1
+
+    } let inputVal = prompt("How big would you like your new etch-a-sketch to be?") 
+        if(inputVal>100||isNaN(inputVal)==true||inputVal<1) {
+            alert("Sorry, I can only build you a grid with numbers between 1 and 100!")
+
+        } else {
+            for(i=0; i<oldGrid; i++) {
+                    container.removeChild(grid[i])
+                    }
+            for(i=0; i<(inputVal*inputVal); i++) {
+                    container.appendChild(grid[i])  
+                    }
+            container.style.height = (inputVal*9)+'px'
+            container.style.width = (inputVal*9)+'px'
+            }
+    oldGrid = (inputVal*inputVal)
+})
+
+currentOpacity = []
+gridOpacity = []
+
+function genBoard() {
+    for(i=0; i<10000; i++) {
+    grid[i] = document.createElement("div")
+    grid[i].setAttribute('id',i)
+    currentOpacity[i] = 0
+    grid[i].classList.add('board')
+    grid[i].addEventListener('mouseover', function (e) {
+        j = e.target.getAttribute('id')
+        currentOpacity[j] = currentOpacity[j] +.1
+        e.target.classList.add('hover')
+        e.target.style.opacity = currentOpacity[j]
+    })
+    }
+    for(i=0; i<256; i++) {
+        container.appendChild(grid[i]) 
+    }
+    oldGrid = 256
+}
+
+genBoard()
+
+
+
+</script>
+
+
+
+</html>
